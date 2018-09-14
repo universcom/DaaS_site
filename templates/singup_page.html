@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sing_up</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+
+    </style>
+</head>
+<body>
+ <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        {% if field.name == "matlab"  %}
+            <p><strong>select your app:</strong></p>
+        {% endif %}
+      <p>
+        {% if field.name == "matlab" or field.name == "revite" or  field.name == "photoshop" or  field.name == "max3d"  %}
+            {{ field.label_tag }}
+            {{ field }}
+        {% else %}
+            {{ field.label_tag }} <br>
+            {{ field }}
+        {% endif %}
+        {% if field.help_text %}
+            {% if field.name == "username" %}
+                <small style="color: grey">Enter your username </small>
+            {% elif field.name == "password1" %}
+                <small style="color: grey">Enter your password at least 8 charater and complex </small>
+            {% else %}
+                <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Sign up</button>
+  </form>
+    <form action="http://31.184.132.41:8080/guacamole">
+    <input type="submit" value="Login" />
+    </form>
+
+</body>
+</html>
